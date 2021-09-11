@@ -22,4 +22,7 @@ do
     COUNTER=$((COUNTER+1))
 done
 
+trap on_sigint SIGINT
+on_sigint() { echo "goodbye"; }
+
 nginx -g "daemon off;"

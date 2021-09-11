@@ -14,16 +14,16 @@ Chromecast devices also don't seem to support HLS streams without an audio track
 #### Build the image
 (optional)
 
-`docker build . -t gihad/streamer`
+`docker build -t rtsp-stream .`
 
 #### Run with docker
 Need to expose the port, mount the volume and pass in parameters
 
-`docker run -e PARAMETERS="INPUT_STREAM_1 STREAM_1_NAME INPUT_STREAM_2 STREAM_2_NAME" -v host_volume:container_volume -p host_port:container_port gihad/streamer`
+`docker run -t -i -e PARAMETERS="INPUT_STREAM_1 STREAM_1_NAME INPUT_STREAM_2 STREAM_2_NAME" -v host_volume:container_volume -p host_port:container_port rtsp-stream`
 
 Example:
 
-`docker run -e PARAMETERS="rtsp://username:password@192.168.1.183:554/cam/realmonitor?channel=1&subtype=1 frontyard rtsp://username:password@192.168.1.183:554/cam/realmonitor?channel=2&subtype=1 driveway" -v /tmp/stream:/tmp/stream -p 8080:80 gihad/streamer`
+`docker run -t -i -e PARAMETERS="rtsp://username:password@192.168.1.183:554/cam/realmonitor?channel=1&subtype=1 frontyard rtsp://username:password@192.168.1.183:554/cam/realmonitor?channel=2&subtype=1 driveway" -v /tmp/stream:/tmp/stream -p 8080:80 rtsp-stream`
 
 ### Paramaters format
 The parameters need to be passed in as a single environment variable called PARAMETERS separated by spaces in the following format:
