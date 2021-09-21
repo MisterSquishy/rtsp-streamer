@@ -1,18 +1,17 @@
 from ffmpeg import FFmpeg
+import os
 
-ffmpeg = FFmpeg().option('y').input(
-  'rtsp://peteybirds:Birdz123@192.168.1.16/live',
+ffmpeg = FFmpeg().input(
+  os.getenv("INPUT"),
   rtsp_transport='tcp',
-  rtsp_flags='prefer_tcp',    
 ).output(
-  '/tmp/stream/birdcam.m3u8',
-  {'codec:v': 'copy'},
-  f='mpegts',
+  f'/tmp/stream/{os.getenv("OUTPUT")}.m3u8',
+  vcodec='h264',
   hls_list_size=100,
   hls_init_time=1,
   hls_time=1,
   hls_flags='delete_segments'
-)
+).option('an')
 
 @ffmpeg.on('start')
 def on_start(arguments):
