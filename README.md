@@ -5,4 +5,4 @@ uses `ffmpeg` to stream rtsp to hls
 `docker build -t stream .`
 
 #### run
-`docker run -it -p 8080:8080 --restart=always rtsp-stream-python`
+`docker run -it -p 8080:8080 --restart=always stream`
