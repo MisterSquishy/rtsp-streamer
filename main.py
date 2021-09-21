@@ -1,10 +1,14 @@
 import asyncio
 from threading import Thread
 from stream import ffmpeg
+from flask_cors import CORS, cross_origin
 from flask import Flask, send_from_directory
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = ('Content-Type','Content-Length')
 
 @app.route("/<path:name>")
+@cross_origin()
 def serve_stream(name):
   return send_from_directory("/tmp/stream/", name)
 
